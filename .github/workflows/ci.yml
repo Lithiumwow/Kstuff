@@ -46,8 +46,9 @@ jobs:
     - name: Build lib (before toolchain, x86_64 only)
       run: |
         cd lib
+        make clean
         make CC=/usr/bin/gcc LD=/usr/bin/ld
-        file lib.a lib-elf-ps5.a
+        file dl.o crt.o rfork.o syscalls.o lib.a lib-elf-ps5.a
         cd ..
 
     - name: Install toolchain

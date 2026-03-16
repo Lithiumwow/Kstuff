@@ -1,0 +1,10 @@
+# Lib build products (must be built on x86_64 Linux; do not commit Mac/ARM objects)
+lib/*.o
+lib/*.a
+lib/syscalls.asm
+lib/syscalls-ps5.asm
+
+# Payload build
+ps5-kstuff-ldr/kstuff.elf
+ps5-kstuff/*.o
+ps5-kstuff-ldr/*.o
