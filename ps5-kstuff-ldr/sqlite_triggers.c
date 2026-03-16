@@ -1,6 +1,6 @@
 #include <stddef.h>
 #include <sys/mman.h>
-#include <sqlite3.h>
+#include "sqlite3.h"
 
 
 struct buf
@@ -65,8 +65,7 @@ void run_stmt(sqlite3* db, const char* cmd, struct buf* buf)
 {
     while(*cmd)
     {
-        sqlite3_stmt* stmt;
-        const char* tail;
+        const char* tail = NULL;
 
         if(sqlite3_prepare_v2(db, cmd, -1, &stmt, &tail) != SQLITE_OK)
             asm volatile("ud2");
@@ -84,8 +83,7 @@ void run_stmt(sqlite3* db, const char* cmd, struct buf* buf)
 int patch_app_db(void)
 {
     struct buf buf = {};
-    char* errmsg;
-    sqlite3* db;
+    sqlite3* db = NULL;
     char* cmd;
 
     if(sqlite3_open_v2("/system_data/priv/mms/app.db", &db, SQLITE_OPEN_READWRITE, 0) != SQLITE_OK)
