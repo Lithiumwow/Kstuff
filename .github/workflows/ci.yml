@@ -33,7 +33,7 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt update
-        sudo apt install -y build-essential clang-18 lld-18 xxd yasm nasm python3
+        sudo apt install -y build-essential xxd yasm nasm python3
 
     - name: Install toolchain
       run: |
