@@ -17,21 +17,35 @@ concurrency:
 
 jobs:
   payload-build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
 
     - name: Checkout
       uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: Verify x86_64 runner
+      run: |
+        uname -m
+        [ "$(uname -m)" = "x86_64" ] || { echo "ERROR: build requires x86_64 runner"; exit 1; }
 
     - name: Install dependencies
       run: |
         sudo apt update
-        sudo apt install build-essential clang-18 lld-18 xxd yasm nasm
+        sudo apt install -y build-essential clang-18 lld-18 xxd yasm nasm python3
 
     - name: Install toolchain
       run: |
-        wget https://github.com/ps5-payload-dev/pacbrew-repo/releases/latest/download/ps5-payload-dev.tar.gz
+        wget -q https://github.com/ps5-payload-dev/pacbrew-repo/releases/latest/download/ps5-payload-dev.tar.gz
         sudo tar xf ps5-payload-dev.tar.gz -C /
+
+    - name: Build lib (x86_64)
+      run: |
+        cd lib
+        make
+        file lib-elf-ps5.a
+        cd ..
 
     - name: Build Payload
       run: |
