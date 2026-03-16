@@ -1,6 +1,6 @@
 [submodule "ps5-kstuff/BearSSL"]
 	path = ps5-kstuff/BearSSL
-	url = https://github.com/nickray/bearssl
+	url = https://github.com/status-im/BearSSL
 [submodule "ps5-kstuff/libtomcrypt"]
 	path = ps5-kstuff/libtomcrypt
 	url = https://github.com/libtom/libtomcrypt
