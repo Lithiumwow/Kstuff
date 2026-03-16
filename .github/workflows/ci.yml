@@ -35,17 +35,17 @@ jobs:
         sudo apt update
         sudo apt install -y build-essential xxd yasm nasm python3
 
-    - name: Install toolchain
-      run: |
-        wget -q https://github.com/ps5-payload-dev/pacbrew-repo/releases/latest/download/ps5-payload-dev.tar.gz
-        sudo tar xf ps5-payload-dev.tar.gz -C /
-
-    - name: Build lib (x86_64)
+    - name: Build lib (before toolchain, use system gcc)
       run: |
         cd lib
         make
         file lib-elf-ps5.a
         cd ..
+
+    - name: Install toolchain
+      run: |
+        wget -q https://github.com/ps5-payload-dev/pacbrew-repo/releases/latest/download/ps5-payload-dev.tar.gz
+        sudo tar xf ps5-payload-dev.tar.gz -C /
 
     - name: Build Payload
       run: |
