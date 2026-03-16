@@ -23,6 +23,11 @@ jobs:
       options: --platform linux/amd64
     steps:
 
+    - name: Install Git (required for checkout with submodules)
+      run: |
+        apt-get update
+        apt-get install -y git
+
     - name: Checkout
       uses: actions/checkout@v4
       with:
